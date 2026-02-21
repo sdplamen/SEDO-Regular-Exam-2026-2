@@ -4,19 +4,19 @@ pipeline {
     stages {
         stage('Restore dependencies') {
             steps {
-                ch 'dotnet restore'
+                sh 'dotnet restore'
             }
         }
 
         stage('Build') {
             steps {
-                ch 'dotnet build --no-restore'
+                sh 'dotnet build --no-restore'
             }
         }
 
         stage('Run the tests') {
             steps {
-                ch 'dotnet test --no-build --verbosity normal'
+                sh 'dotnet test --no-build --verbosity normal'
             }
         }
     }
