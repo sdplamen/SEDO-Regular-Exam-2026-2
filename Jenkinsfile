@@ -3,20 +3,35 @@ pipeline {
 
     stages {
         stage('Restore dependencies') {
+            when {
+                expression{
+                    return env.GIT_BRANCH=='origin/main'
+                }
+            }
             steps {
-                sh 'dotnet restore'
+                bat 'dotnet restore'
             }
         }
 
         stage('Build') {
+            when {
+                expression{
+                    return env.GIT_BRANCH=='origin/main'
+                }
+            }
             steps {
-                sh 'dotnet build --no-restore --configuration Release'
+                bat 'dotnet build --no-restore --configuration Release'
             }
         }
 
         stage('Run the tests') {
+            when {
+                expression{
+                    return env.GIT_BRANCH=='origin/main'
+                }
+            }
             steps {
-                sh 'dotnet test --no-build --verbosity normal'
+                bat 'dotnet test --no-build --verbosity normal'
             }
         }
     }
